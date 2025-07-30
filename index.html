@@ -1,0 +1,73 @@
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+
+    <div id="game-container">
+        <canvas id="game" width="700" height="450"></canvas>
+    </div>
+
+    <div id="game-ui-overlay">
+        <div id="info-bar-container">
+            <div id="info" style="display:none;">
+                Score: <span id="score">0</span> | High Score: <span id="highScore">0</span> | Level: <span id="level">1</span> | Keys collected: <span id="collected">0</span>
+                <span id="timer" style="float:right; display:none;">Time: 30</span>
+            </div>
+            
+            <div id="dash-cooldown-wrapper" style="display: none;">
+                <div id="dash-cooldown-bar"></div>
+                <div id="dash-cooldown-text">Dash Ready!</div>
+            </div>
+        </div>
+
+        <div id="startInfo" style="display:none;">You are invulnerable until you move.</div>
+
+        <div id="menu" tabindex="0">
+            <h1>Neon AX</h1>
+            <label for="colorSelect">Character Color:</label>
+            <select id="colorSelect" aria-label="Character Color">
+                <option value="blue" selected>Blue</option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="purple">Purple</option>
+                <option value="orange">Orange</option>
+            </select>
+            <label for="modeSelect">Game Mode:</label>
+            <select id="modeSelect" aria-label="Game Mode">
+                <option value="classic" selected>Classic</option>
+                <option value="timed">Timed (30s)</option>
+            </select>
+            <button id="startBtn">START</button>
+            <div id="menuHighScore">High Score: 0</div>
+        </div>
+
+        <div id="gameOver" class="overlay" tabindex="0">
+            <div>GAME OVER!</div>
+            <div id="newRecordMsg">RECORD BROKEN!</div>
+            <div class="option selected" data-action="retry">Try Again</div>
+            <div class="option" data-action="menu">Return to Menu</div>
+            <div style="font-size: 1rem; margin-top:10px; color:#0ff;">Use ↑↓ keys to select, Enter to confirm</div>
+        </div>
+
+        <div id="levelUp" class="overlay" tabindex="0">
+            <div>LEVEL COMPLETE!</div>
+            <div class="option selected" data-action="next">Next Level</div>
+            <div style="font-size: 1rem; margin-top:10px; color:#0ff;">Use ↑↓ keys to select, Enter to confirm</div>
+        </div>
+
+        <div id="confirmQuit" class="overlay" tabindex="0">
+            <div>Are you sure you want to return to the menu?</div>
+            <div class="option selected" data-action="yes">Yes</div>
+            <div class="option" data-action="no">No</div>
+            <div style="font-size: 1rem; margin-top:10px; color:#0ff;">Use ↑↓ keys to select, Enter to confirm</div>
+        </div>
+
+        <div id="joystick-container">
+            <div id="joystick-base"></div>
+            <div id="joystick-handle"></div>
+        </div>
+
+        <div id="dash-button-container">
+            <button id="dash-button">DASH</button>
+        </div>
+    </div>
+    <script src="script.js"></script>

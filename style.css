@@ -1,0 +1,318 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #000014;
+    font-family: 'Press Start 2P', cursive;
+    color: #0ff;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+}
+
+#game-container {
+    position: relative;
+    width: 700px; /* Sabit genişlik */
+    height: 450px; /* Sabit yükseklik */
+    border: 3px solid #0ff;
+    box-shadow: 0 0 20px #0ff;
+    background-color: #0a001a;
+    overflow: hidden;
+    z-index: 10;
+    margin-top: 0;
+}
+
+canvas {
+    display: block;
+    background-color: #0a001a;
+    touch-action: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#game-ui-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Bu genel katman için 'none' kalmalı */
+    z-index: 100;
+}
+
+#info-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-bottom: 2px solid #0ff;
+    box-shadow: 0 0 15px #0ff;
+    z-index: 1000;
+    pointer-events: auto; /* Bilgi çubuğu için 'auto' olmalı */
+}
+
+#info {
+    color: #0ff;
+    font-size: 1.2em;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+    display: none;
+    text-align: left;
+}
+#info span {
+    font-weight: normal;
+    color: #fff;
+    text-shadow: 0 0 5px #fff;
+}
+#timer {
+    font-weight: bold;
+    font-size: 1em;
+    color: #0f0;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
+    display: none;
+    margin-left: 20px;
+}
+
+#startInfo {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    text-align: center;
+    color: #0f0;
+    box-shadow: 0 0 20px #0f0;
+    user-select: none;
+    display: none;
+    z-index: 999;
+    pointer-events: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.85);
+    padding:30px 50px;
+    border-radius:12px;
+    font-size:2rem;
+    text-shadow:0 0 15px #0ff;
+    user-select:none;
+    cursor:default;
+    color:#0ff;
+    min-width:300px;
+    box-sizing: border-box;
+    z-index: 2000;
+    display: none;
+    pointer-events: auto; /* Bu menüler için 'auto' olmalı */
+    text-align: center;
+}
+
+#menu {
+    display: block;
+    padding: 50px 80px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px #0ff;
+    pointer-events: auto; /* ANA MENÜ İÇİN EKLENDİ */
+}
+#menu h1 {
+    font-size: 3em;
+    color: #0ff;
+    text-shadow: 0 0 20px #0ff;
+    margin-bottom: 25px;
+}
+#menu label {
+    display: block;
+    margin-top: 25px;
+    font-size: 1.4rem;
+}
+#menu select {
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    border: 2px solid #0ff;
+    box-shadow: 0 0 15px #0ff;
+    background: #000a1a;
+    color: #0ff;
+    cursor: pointer;
+    user-select: none;
+}
+#menu button {
+    background: #0ff;
+    border: none;
+    padding: 20px 60px;
+    font-size: 2rem;
+    color: #000014;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #0ff;
+    transition: background 0.3s ease;
+    margin-top: 30px;
+    font-family: 'Press Start 2P', cursive;
+}
+#menu button:hover, #menu button:focus {
+    background: #33ffff;
+    outline: none;
+}
+#menuHighScore {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    color: #0ff;
+    text-shadow: 0 0 8px #0ff;
+}
+#newRecordMsg {
+    margin-top: 15px;
+    font-size: 1.6rem;
+    color: #0f0;
+    text-shadow: 0 0 10px #0f0;
+    font-weight: bold;
+    display: none;
+}
+
+.option {
+    padding: 8px 15px;
+    margin: 10px auto;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease-in-out;
+}
+.option.selected {
+    background: #0ff;
+    color: #000014;
+    font-weight: bold;
+    box-shadow: 0 0 15px #0ff;
+}
+
+#dash-cooldown-wrapper {
+    width: 150px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+#dash-cooldown-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #0f0;
+    transition: width 0.1s linear, background-color 0.3s ease;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#dash-cooldown-text {
+    position: relative;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    text-shadow: 0 0 5px black;
+    pointer-events: none;
+}
+
+#joystick-container {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 150px;
+    height: 150px;
+    display: none; /* Mobil cihazlarda JS ile gösterilecek */
+    z-index: 1000;
+    opacity: 0.8;
+    pointer-events: auto;
+}
+
+#joystick-base {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 255, 255, 0.2);
+    border: 2px solid #0ff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+}
+
+#joystick-handle {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: #0ff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #0ff;
+    left: calc(50% - 30px);
+    top: calc(50% - 30px);
+    cursor: grab;
+    touch-action: none;
+}
+
+#dash-button-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: none; /* Mobil cihazlarda JS ile gösterilecek */
+    z-index: 1000;
+    opacity: 0.8;
+    pointer-events: auto;
+}
+
+#dash-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: transparent; /* Arka planı saydam yaptık */
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: 2px solid #f0f;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#dash-button:active {
+    background-color: rgba(255, 0, 255, 0.3); /* Aktifken hafif bir renk tonu */
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+    #joystick-container,
+    #dash-button-container {
+        display: block;
+    }
+}
+
+:focus {
+    outline: none;
+}
